@@ -1,0 +1,61 @@
+{
+  "gameGroupList": [
+    {
+      "type": "GameGroup",
+      "betId": 24,
+      "betDescription": "",
+      "layout": {
+        "layoutType": "normal",
+        "additionalInfo": null,
+        "rows": 1,
+        "columns": 3,
+        "pickerPaging": null,
+        "multiPicker": null,
+        "pickerPages": null
+      },
+      "gameList": [
+        {
+          "type": "Game",
+          "gameCode": 3,
+          "gameDescription": "1X2",
+          "outcomeListCode": 1,
+          "cashable": false,
+          "comboMin": 1,
+          "comboMax": 30,
+          "comboAams": 0,
+          "live": false,
+          "subGameList": [
+            {
+              "subGameDescription": null,
+              "altSubGameDescription": null,
+              "outcomeList": [
+                {
+                  "outcomeCode": 1,
+                  "outcomeDescription": "1",
+                  "outcomeOdds": 250,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 2,
+                  "outcomeDescription": "X",
+                  "outcomeOdds": 280,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 3,
+                  "outcomeDescription": "2",
+                  "outcomeOdds": 350,
+                  "selected": false
+                }
+              ],
+              "subGameType": 0,
+              "subGameCodeList": [
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

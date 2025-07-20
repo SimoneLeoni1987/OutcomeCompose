@@ -36,7 +36,34 @@ data class GameGroup(
     val layoutType: Int,
     val layout: Layout,
     val gameList: List<Game>
-)
+) {
+
+    fun getStableId(): Int {
+        var result = betDescription.hashCode()
+        result = 31 * result + betId.hashCode()
+
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as GameGroup
+        if (betId != other.betId) return false
+        if (betDescription != other.betDescription) return false
+        if (gameList != other.gameList) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = betDescription.hashCode()
+        result = 31 * result + betId.hashCode()
+        result = 31 * result + gameList.hashCode()
+        return result
+    }
+
+}
 
 data class Game(
     val type: String,
@@ -53,7 +80,35 @@ data class Game(
     val statusId: Int,
     val layoutType: Int,
     val player: Player
-)
+) {
+
+    fun getStableId(): Int {
+        var result = gameDescription.hashCode()
+        result = 31 * result + gameCode.hashCode()
+        result = 31 * result + outcomeListCode.hashCode()
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as Game
+        if (gameCode != other.gameCode) return false
+        if (gameDescription != other.gameDescription) return false
+        if (outcomeListCode != other.outcomeListCode) return false
+        if (subGameList != other.subGameList) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = gameDescription.hashCode()
+        result = 31 * result + gameCode.hashCode()
+        result = 31 * result + outcomeListCode.hashCode()
+        result = 31 * result + subGameList.hashCode()
+        return result
+    }
+}
 
 data class SubGame(
     val subGameDescription: String,
