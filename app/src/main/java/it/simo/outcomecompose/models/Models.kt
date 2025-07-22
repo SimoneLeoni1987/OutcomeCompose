@@ -20,14 +20,77 @@ data class Event(
     val sportBackgroundImageUrl: String,
     val gamesNumber: Int,
     val live: Boolean
-)
+) {
+    fun getStableId(): Int {
+        var result = eventCode.hashCode()
+        result = 31 * result + leagueCode.hashCode()
+        result = 31 * result + programCode.hashCode()
+        result = 31 * result + sportCode.hashCode()
+
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as Event
+        if (eventCode != other.eventCode) return false
+        if (leagueCode != other.leagueCode) return false
+        if (programCode != other.programCode) return false
+        if (sportCode != other.sportCode) return false
+        if (teamHome != other.teamHome) return false
+        if (teamAway != other.teamAway) return false
+        if (timeLive != other.timeLive) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = eventCode.hashCode()
+        result = 31 * result + leagueCode.hashCode()
+        result = 31 * result + programCode.hashCode()
+        result = 31 * result + sportCode.hashCode()
+        result = 31 * result + teamHome.hashCode()
+        result = 31 * result + teamAway.hashCode()
+        result = 31 * result + timeLive.hashCode()
+        return result
+    }
+}
 
 data class BetItem(
     val event: Event,
     val player: Player,
     val gameGroupList: List<GameGroup>,
     val isScorecast: Boolean
-)
+) {
+    fun getStableId(): Int {
+        var result = event.eventCode.hashCode()
+        result = 31 * result + player.hashCode()
+        result = 31 * result + isScorecast.hashCode()
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as BetItem
+        if (event.eventCode != other.event.eventCode) return false
+        if (player != other.player) return false
+        if (gameGroupList != other.gameGroupList) return false
+        if (isScorecast != other.isScorecast) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = event.eventCode.hashCode()
+        result = 31 * result + player.hashCode()
+        result = 31 * result + gameGroupList.hashCode()
+        result = 31 * result + isScorecast.hashCode()
+        return result
+    }
+
+}
 
 data class GameGroup(
     val type: String,
@@ -130,6 +193,7 @@ data class SubGame(
 
         return result
     }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -144,6 +208,7 @@ data class SubGame(
 
         return true
     }
+
     override fun hashCode(): Int {
         var result = subGameDescription.hashCode()
         result = 31 * result + subGameCodeList.hashCode()
@@ -167,6 +232,7 @@ data class Outcome(
         hash = 31 * hash + (outcomeCode.hashCode())
         return hash
     }
+
     // Lets exclude for the moment the selected ..
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -181,6 +247,7 @@ data class Outcome(
 
         return true
     }
+
     override fun hashCode(): Int {
         var hash = outcomeDescription.hashCode()
         hash = 31 * hash + (outcomeCode.hashCode())
@@ -202,6 +269,7 @@ data class AdditionalInfo(
         }
         return result
     }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -213,6 +281,7 @@ data class AdditionalInfo(
 
         return true
     }
+
     override fun hashCode(): Int {
         var hash = additionalInfoDesc.hashCode()
         hash = 31 * hash + additionalInfoValue.hashCode()
@@ -235,7 +304,34 @@ data class Team(
     val description: String,
     val score: String,
     val players: List<Player>
-)
+) {
+
+    fun getStableId(): Int {
+        var result = teamId.hashCode()
+        result = 31 * result + description.hashCode()
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as Team
+        if (teamId != other.teamId) return false
+        if (description != other.description) return false
+        if (score != other.score) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = teamId.hashCode()
+        result = 31 * result + description.hashCode()
+        result = 31 * result + score.hashCode()
+        return result
+    }
+
+
+}
 
 data class Layout(
     val layoutType: String,
