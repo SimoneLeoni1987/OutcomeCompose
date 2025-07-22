@@ -1,0 +1,189 @@
+{
+  "gameGroupList": [
+    {
+      "type": "GameGroup",
+      "betId": 24,
+      "betDescription": "",
+      "layout": {
+        "layoutType": "normal",
+        "additionalInfo": "picker",
+        "rows": null,
+        "columns": 3,
+        "pickerPaging": true,
+        "multiPicker": false,
+        "pickerPages": 4
+      },
+      "gameList": [
+        {
+          "type": "Game",
+          "gameCode": 1128,
+          "gameDescription": "U/O GOAL",
+          "outcomeListCode": 7,
+          "priority": 0,
+          "cashable": false,
+          "comboMin": 1,
+          "comboMax": 30,
+          "comboAams": 0,
+          "live": false,
+          "layoutType": 200,
+          "subGameList": [
+            {
+              "subGameDescription": "0.5 ",
+              "altSubGameDescription": null,
+              "outcomeList": [
+                {
+                  "outcomeCode": 1,
+                  "outcomeDescription": "UNDER",
+                  "outcomeOdds": 1100,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 2,
+                  "outcomeDescription": "OVER",
+                  "outcomeOdds": 101,
+                  "selected": false
+                }
+              ],
+              "subGameType": 4,
+              "subGameCodeList": [
+                50
+              ]
+            },
+            {
+              "subGameDescription": "1.5 ",
+              "altSubGameDescription": null,
+              "outcomeList": [
+                {
+                  "outcomeCode": 1,
+                  "outcomeDescription": "UNDER",
+                  "outcomeOdds": 370,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 2,
+                  "outcomeDescription": "OVER",
+                  "outcomeOdds": 124,
+                  "selected": false
+                }
+              ],
+              "subGameType": 4,
+              "subGameCodeList": [
+                150
+              ]
+            },
+            {
+              "subGameDescription": "2.5 ",
+              "altSubGameDescription": null,
+              "outcomeList": [
+                {
+                  "outcomeCode": 1,
+                  "outcomeDescription": "UNDER",
+                  "outcomeOdds": 197,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 2,
+                  "outcomeDescription": "OVER",
+                  "outcomeOdds": 178,
+                  "selected": false
+                }
+              ],
+              "subGameType": 4,
+              "subGameCodeList": [
+                250
+              ]
+            },
+            {
+              "subGameDescription": "3.5 ",
+              "altSubGameDescription": null,
+              "outcomeList": [
+                {
+                  "outcomeCode": 1,
+                  "outcomeDescription": "UNDER",
+                  "outcomeOdds": 137,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 2,
+                  "outcomeDescription": "OVER",
+                  "outcomeOdds": 290,
+                  "selected": false
+                }
+              ],
+              "subGameType": 4,
+              "subGameCodeList": [
+                350
+              ]
+            },
+            {
+              "subGameDescription": "4.5 ",
+              "altSubGameDescription": null,
+              "outcomeList": [
+                {
+                  "outcomeCode": 1,
+                  "outcomeDescription": "UNDER",
+                  "outcomeOdds": 112,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 2,
+                  "outcomeDescription": "OVER",
+                  "outcomeOdds": 540,
+                  "selected": false
+                }
+              ],
+              "subGameType": 4,
+              "subGameCodeList": [
+                450
+              ]
+            },
+            {
+              "subGameDescription": "5.5 ",
+              "altSubGameDescription": null,
+              "outcomeList": [
+                {
+                  "outcomeCode": 1,
+                  "outcomeDescription": "UNDER",
+                  "outcomeOdds": 101,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 2,
+                  "outcomeDescription": "OVER",
+                  "outcomeOdds": 1050,
+                  "selected": false
+                }
+              ],
+              "subGameType": 4,
+              "subGameCodeList": [
+                550
+              ]
+            },
+            {
+              "subGameDescription": "6.5 ",
+              "altSubGameDescription": null,
+              "outcomeList": [
+                {
+                  "outcomeCode": 1,
+                  "outcomeDescription": "UNDER",
+                  "outcomeOdds": 100,
+                  "selected": false
+                },
+                {
+                  "outcomeCode": 2,
+                  "outcomeDescription": "OVER",
+                  "outcomeOdds": 2100,
+                  "selected": false
+                }
+              ],
+              "subGameType": 4,
+              "subGameCodeList": [
+                650
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

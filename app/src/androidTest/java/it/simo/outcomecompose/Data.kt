@@ -13,8 +13,7 @@ class Data {
     @Test
     fun `get GameGroups returnin the right one`() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        val dataGetter = DataGetter()
-        val gameGroups = dataGetter.getGameGroupList(appContext, "gamegroup/no_additional_info.json")
+        val gameGroups = DataGetter.getGameGroupList(appContext, "gamegroup/no_additional_info.json")
         TestCase.assertEquals(1, gameGroups.gameGroupList.size)
         TestCase.assertEquals("GameGroup", gameGroups.gameGroupList[0].type)
         TestCase.assertEquals(24, gameGroups.gameGroupList[0].betId)

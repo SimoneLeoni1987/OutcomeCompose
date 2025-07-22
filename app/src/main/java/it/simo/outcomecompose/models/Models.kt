@@ -335,7 +335,7 @@ data class Team(
 
 data class Layout(
     val layoutType: String,
-    val additionalInfo: String,
+    val additionalInfo: String?,
     val rows: Int,
     val columns: Int,
     val pickerPaging: Boolean,

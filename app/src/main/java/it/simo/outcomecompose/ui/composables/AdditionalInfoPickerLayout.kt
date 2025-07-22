@@ -26,7 +26,7 @@ import it.simo.outcomecompose.utils.Mock
 @Composable
 fun AdditionalInfoPickerLayout(
     allSubGames: List<SubGame>,
-    columns: Int,
+    columns: Int = 3,
     pageSize: Int,
     onUserSelectedSubGame: (SubGame) -> Unit
 ) {

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import it.simo.outcomecompose.models.Outcome
 import it.simo.outcomecompose.ui.theme.OutcomesHorizontalSpacing
 import it.simo.outcomecompose.ui.theme.OutcomesVerticalSpacing
@@ -17,17 +18,17 @@ fun OutcomeButtonsLayout(
     onOutcomeClicked: (Outcome) -> Unit
 ) {
     var buttonsInserted = 0
-    var maxValue = outcomes.size
+    var outcomesCount = outcomes.size
 
     Column(
         verticalArrangement = Arrangement.spacedBy(OutcomesVerticalSpacing)
     ) {
-        while (buttonsInserted < maxValue) {
+        while (buttonsInserted < outcomesCount) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(OutcomesHorizontalSpacing),
             ) {
-                for (i in 0 until min(maxValue - buttonsInserted, columns)) {
-                    val index = buttonsInserted + i
+                (0 until min(outcomesCount - buttonsInserted, columns)).forEach { i ->
+                    val index = buttonsInserted
                     OutcomeButton(
                         outcome = outcomes[index],
                         onClicked = { onOutcomeClicked(outcomes[index]) },
@@ -38,4 +39,24 @@ fun OutcomeButtonsLayout(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun OutcomeButtonsLayoutPreview() {
+
+    val outcomes = listOf(
+        Outcome(1, "1", "", 250, null, false),
+        Outcome(2, "2", "", 250, null, false),
+        Outcome(3, "3", "", 250, null, false),
+        Outcome(4, "4", "", 250, null, false),
+        Outcome(5, "5", "", 250, null, false),
+    )
+
+    OutcomeButtonsLayout(
+        outcomes = outcomes,
+        columns = 3,
+        onOutcomeClicked = {}
+    )
+
 }

@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import it.simo.outcomecompose.data.response.BetItemsResponse
 import it.simo.outcomecompose.data.response.GameGroupsResponse
 
-class DataGetter {
+object DataGetter {
     fun getGameGroupList(context: Context, fileName: String): GameGroupsResponse {
         val response = parseJsonFromAssetsToType(context, fileName, GameGroupsResponse::class.java)
         return response ?: GameGroupsResponse(emptyList())
