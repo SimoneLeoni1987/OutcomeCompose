@@ -32,10 +32,8 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        Greeting(
-                            name = "Android"
-                        )
-                        OutcomeButtonPreview()
+
+
                     }
                 }
             }
@@ -51,13 +49,20 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
+@Composable
+fun OutcomesScreen(modifier: Modifier = Modifier) {
+
+
+
+
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     OutcomeComposeTheme {
         Column {
             Greeting("Android")
-            OutcomeButtonPreview()
         }
     }
 }
