@@ -1,8 +1,15 @@
 package it.simo.outcomecompose.utils
 
 import it.simo.outcomecompose.models.AdditionalInfo
+import it.simo.outcomecompose.models.BetItem
+import it.simo.outcomecompose.models.Event
+import it.simo.outcomecompose.models.Game
+import it.simo.outcomecompose.models.GameGroup
+import it.simo.outcomecompose.models.Layout
 import it.simo.outcomecompose.models.Outcome
+import it.simo.outcomecompose.models.Player
 import it.simo.outcomecompose.models.SubGame
+import it.simo.outcomecompose.models.Team
 
 // TODOLIST
 //  [x] Create methods to create outcomes
@@ -10,6 +17,101 @@ import it.simo.outcomecompose.models.SubGame
 //  [x] Create methods to create additional info
 //  [x] Create methods to create additional info
 object Mock {
+    fun createBetItem(): BetItem {
+        return BetItem(
+            event = createEvent(),
+            player = createPlayer(),
+            gameGroupList = listOf(createGameGroup()),
+            isScorecast = false
+        )
+    }
+
+    fun createEvent(): Event {
+        return Event(
+            programCode = 1,
+            sportCode = 1,
+            leagueCode = 1,
+            eventCode = 1,
+            leagueDescription = "League 1",
+            leagueImageUrl = "",
+            eventDescription = "Event 1",
+            eventDate = 1,
+            teamHome = createTeam(),
+            timeLive = "Time Live",
+            teamAway = createTeam(),
+            sportDescription = "Sport 1",
+            sportBackgroundImageUrl = "",
+            gamesNumber = 1,
+            live = false
+        )
+    }
+
+    fun createPlayer(): Player {
+        return Player(
+            playerId = "playerId",
+            playerName = "playerName",
+            team = createTeam(),
+            playerPosition = "playerPosition",
+            teams = emptyList()
+        )
+    }
+
+    fun createTeam(): Team {
+        return Team(
+            teamId = 1,
+            teamImageUrl = "teamImageUrl",
+            description = "description",
+            score = "score",
+            players = emptyList()
+        )
+    }
+
+    fun createGameGroup(): GameGroup {
+        return GameGroup(
+            type = "type",
+            betId = 1,
+            betDescription = "betDescription",
+            layoutType = 1,
+            layout = createLayout(),
+            gameList = listOf(createGame())
+        )
+    }
+
+    fun createGame(): Game {
+        return Game(
+            type = "type",
+            gameCode = 1,
+            gameDescription = "gameDescription",
+            outcomeListCode = 1,
+            cashable = false,
+            comboMin = 1,
+            comboMax = 1,
+            comboAams = 1,
+            live = false,
+            subGameList = listOf(createSubgame(
+                value = 1,
+                numberOfSubGameCodeList = 3,
+                numberOfOutcomes = 3
+            )),
+            priority = 1,
+            statusId = 1,
+            layoutType = 1,
+            player = null
+        )
+    }
+
+    fun createLayout(): Layout {
+        return Layout(
+            layoutType = "normal",
+            additionalInfo = "",
+            rows = 1,
+            columns = 3,
+            pickerPaging = false,
+            multiPicker = false,
+            pickerPages = 1
+        )
+    }
+
     fun createStaticSubgames(): List<SubGame> {
         val subgames = listOf(
             SubGame(

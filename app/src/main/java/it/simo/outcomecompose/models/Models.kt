@@ -1,9 +1,13 @@
 package it.simo.outcomecompose.models
 
+import androidx.annotation.Keep
+import androidx.compose.runtime.Immutable
+
 // TODOLIST
 //  [ ] Create interface to get the stableId method
 //  [ ] Consider using by lazy to calculate only once the hash
 
+@Keep
 data class Event(
     val programCode: Int,
     val sportCode: Int,
@@ -57,6 +61,7 @@ data class Event(
     }
 }
 
+@Keep
 data class BetItem(
     val event: Event,
     val player: Player,
@@ -92,6 +97,7 @@ data class BetItem(
 
 }
 
+@Keep
 data class GameGroup(
     val type: String,
     val betId: Int,
@@ -128,6 +134,7 @@ data class GameGroup(
 
 }
 
+@Keep
 data class Game(
     val type: String,
     val gameCode: Int,
@@ -142,7 +149,7 @@ data class Game(
     val priority: Int,
     val statusId: Int,
     val layoutType: Int,
-    val player: Player
+    val player: Player?
 ) {
 
     fun getStableId(): Int {
@@ -173,6 +180,7 @@ data class Game(
     }
 }
 
+@Keep
 data class SubGame(
     val subGameDescription: String,
     val altSubGameDescription: String = "",
@@ -219,6 +227,7 @@ data class SubGame(
     }
 }
 
+@Keep
 data class Outcome(
     val outcomeCode: Int,
     var outcomeDescription: String,
@@ -257,6 +266,7 @@ data class Outcome(
     }
 }
 
+@Keep
 data class AdditionalInfo(
     val additionalInfoDesc: String,
     val additionalInfoValue: List<Int>,
@@ -289,6 +299,7 @@ data class AdditionalInfo(
     }
 }
 
+@Keep
 data class Player(
     val playerId: String,
     val isNull: Boolean = false,
@@ -298,6 +309,7 @@ data class Player(
     val teams: List<Team>
 )
 
+@Keep
 data class Team(
     val teamId: Int = -1,
     val teamImageUrl: String,
@@ -329,10 +341,9 @@ data class Team(
         result = 31 * result + score.hashCode()
         return result
     }
-
-
 }
 
+@Keep
 data class Layout(
     val layoutType: String,
     val additionalInfo: String?,

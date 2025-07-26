@@ -8,7 +8,7 @@ sealed class OutcomeLayoutType {
 }
 
 fun Layout.getOutcomeLayoutType(): OutcomeLayoutType? {
-    if (layoutType == "normal" && additionalInfo == null) {
+    if (layoutType == "normal" && additionalInfo.isNullOrEmpty()) {
         return OutcomeLayoutType.Classic
     }
 
