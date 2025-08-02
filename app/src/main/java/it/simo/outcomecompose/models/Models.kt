@@ -2,6 +2,7 @@ package it.simo.outcomecompose.models
 
 import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
+import it.simo.outcomecompose.domain.Converters.toSubgames
 
 // TODOLIST
 //  [ ] Create interface to get the stableId method
@@ -64,7 +65,7 @@ data class Event(
 @Keep
 data class BetItem(
     val event: Event,
-    val player: Player,
+    val player: Player?,
     val gameGroupList: List<GameGroup>,
     val isScorecast: Boolean
 ) {
