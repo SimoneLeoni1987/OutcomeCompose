@@ -67,6 +67,9 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(viewModel: MainViewModel, modifier: Modifier = Modifier) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+//   Here I need to mantain a map of subgames selection ..
+    // or to say, this is the local memory .. we are trying to manage hybrid!
+
     // list of CardLayouts
     LazyColumn(
         modifier = modifier,
