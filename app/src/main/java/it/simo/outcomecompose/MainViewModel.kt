@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getBetItems(context: Context) {
-        val response = DataGetter.getBetItemList(context, "betitems/mixed.json")
+        val response = DataGetter.getBetItemList(context, "betitems/reduced_mixed.json")
         _uiState.update { it.copy(betItems = response.betItems) }
     }
 }

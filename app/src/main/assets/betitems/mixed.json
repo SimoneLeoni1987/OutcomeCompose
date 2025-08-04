@@ -11017,15 +11017,15 @@
         "eventCode": 49882,
         "leagueDescription": "Europei 2024",
         "leagueImageUrl": "https://t4.ftcdn.net/jpg/00/97/44/57/360_F_97445702_faYBL0ObQgGxnUOahUiIzY1w2mnJ2g4Y.jpg",
-        "eventDescription": "Spagna - Inghilterra",
+        "eventDescription": "Italia - Olanda",
         "eventDate": 1720992600000,
         "teamHome": {
           "teamImageUrl": "https://t4.ftcdn.net/jpg/00/97/44/57/360_F_97445702_faYBL0ObQgGxnUOahUiIzY1w2mnJ2g4Y.jpg",
-          "description": "Spagna"
+          "description": "Italia"
         },
         "teamAway": {
           "teamImageUrl": "https://t4.ftcdn.net/jpg/00/97/44/57/360_F_97445702_faYBL0ObQgGxnUOahUiIzY1w2mnJ2g4Y.jpg",
-          "description": "Inghilterra"
+          "description": "Olanda"
         },
         "gamesNumber": 5137,
         "sportDescription": "Calcio",
@@ -11092,8 +11092,8 @@
         },
         {
           "type": "GameGroup",
-          "betId": 24,
-          "betDescription": "",
+          "betId": 666,
+          "betDescription": "Just testing bet",
           "layout": {
             "layoutType": "normal",
             "additionalInfo": "picker",
