@@ -8,7 +8,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,9 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.getValue
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -67,7 +64,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(viewModel: MainViewModel, modifier: Modifier = Modifier) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val mainUiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val outcomesUiState by viewModel.outcomeViewModel.uiState.collectAsStateWithLifecycle()
 
     // list of CardLayouts
     LazyColumn(
@@ -76,15 +74,14 @@ fun MainScreen(viewModel: MainViewModel, modifier: Modifier = Modifier) {
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
 
-        items(uiState.betItems
-        ) { item ->
+        items(outcomesUiState.betItems) { item ->
             CardLayout(
                 betItem = item,
                 onSubGameSelected = { subGame ->
 //                    viewModel.onSubGameSelected(subGame)
                 },
                 onPathSelected = { uniquePath ->
-                    viewModel.onUpdateStateReviewed(uniquePath)
+                    viewModel.outcomeViewModel.onUpdateStateReviewed(uniquePath)
                 }
             )
         }

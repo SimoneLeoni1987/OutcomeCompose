@@ -12,9 +12,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import it.simo.outcomecompose.UniquePath
-import it.simo.outcomecompose.models.Outcome
 import it.simo.outcomecompose.models.SubGame
+import it.simo.outcomecompose.state.UniquePath
 import it.simo.outcomecompose.ui.theme.Spacing3
 import it.simo.outcomecompose.utils.Mock
 
