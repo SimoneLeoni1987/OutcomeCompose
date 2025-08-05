@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import it.simo.outcomecompose.UniquePath
 import it.simo.outcomecompose.domain.Converters.toOutcomes
 import it.simo.outcomecompose.domain.Converters.toSubgames
 import it.simo.outcomecompose.domain.OutcomeLayoutType
@@ -28,7 +29,8 @@ import it.simo.outcomecompose.utils.Mock
 @Composable
 fun OutcomesLayout(
     gameGroups: List<GameGroup>,
-    onSubGameSelected: (SubGame) -> Unit
+    onSubGameSelected: (SubGame) -> Unit,
+    uniquePathSelected: (UniquePath) -> Unit
 ) {
 
     Column(
@@ -49,7 +51,13 @@ fun OutcomesLayout(
                             gameGroup.gameList.toSubgames(),
                             pageSize = gameGroup.layout.pickerPages,
                             columns = gameGroup.layout.columns,
-                            onUserSelectedSubGame = onSubGameSelected
+                            onUserSelectedSubGame = onSubGameSelected,
+                            uniquePathSelected = { uniquePath ->
+                                uniquePathSelected(uniquePath.copy(
+                                    game = gameGroup.gameList.first(), // Because we know the behaviour from toSubgames method
+                                    gameGroup = gameGroup
+                                ))
+                            }
                         )
                     }
                 }

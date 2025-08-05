@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import it.simo.outcomecompose.UniquePath
 import it.simo.outcomecompose.models.BetItem
 import it.simo.outcomecompose.models.SubGame
 import it.simo.outcomecompose.ui.theme.CardBg
@@ -29,7 +30,8 @@ import it.simo.outcomecompose.utils.Mock
 fun CardLayout(
     modifier: Modifier = Modifier,
     betItem: BetItem,
-    onSubGameSelected: (SubGame) -> Unit
+    onSubGameSelected: (SubGame) -> Unit,
+    onPathSelected: (UniquePath) -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -47,9 +49,13 @@ fun CardLayout(
             Spacer(modifier = Modifier.size(Spacing3))
             OutcomesLayout(
                 gameGroups = betItem.gameGroupList,
-                onSubGameSelected = onSubGameSelected
+                onSubGameSelected = onSubGameSelected,
+                uniquePathSelected = { uniquePath ->
+                    onPathSelected(uniquePath.copy(
+                        betItem = betItem
+                    ))
+                }
             )
-
         }
     }
 }
@@ -71,7 +77,8 @@ fun CardLayoutPreview() {
         CardLayout(
             modifier = modifier,
             betItem = Mock.createBetItem(),
-            onSubGameSelected = {}
+            onSubGameSelected = {},
+            onPathSelected = {}
         )
     }
 }

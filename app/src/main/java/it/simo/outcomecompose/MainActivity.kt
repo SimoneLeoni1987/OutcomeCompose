@@ -81,7 +81,10 @@ fun MainScreen(viewModel: MainViewModel, modifier: Modifier = Modifier) {
             CardLayout(
                 betItem = item,
                 onSubGameSelected = { subGame ->
-                    viewModel.onSubGameSelected(subGame)
+//                    viewModel.onSubGameSelected(subGame)
+                },
+                onPathSelected = { uniquePath ->
+                    viewModel.onUpdateStateReviewed(uniquePath)
                 }
             )
         }

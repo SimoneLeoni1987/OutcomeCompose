@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import it.simo.outcomecompose.UniquePath
 import it.simo.outcomecompose.models.Outcome
 import it.simo.outcomecompose.models.SubGame
 import it.simo.outcomecompose.ui.theme.Spacing3
@@ -28,7 +29,8 @@ fun AdditionalInfoPickerLayout(
     allSubGames: List<SubGame>,
     columns: Int = 3,
     pageSize: Int,
-    onUserSelectedSubGame: (SubGame) -> Unit
+    onUserSelectedSubGame: (SubGame) -> Unit,
+    uniquePathSelected: (UniquePath) -> Unit
 ) {
 
     var localSelectedSubGame by remember(allSubGames) {
@@ -44,10 +46,12 @@ fun AdditionalInfoPickerLayout(
         AdditionalInfoPicker(
             subgames = allSubGames,
             pageSize = pageSize,
-            currentSelection = localSelectedSubGame, // Use local for picker display
+            currentSelection = localSelectedSubGame,
             onPickerClicked = { newSubGame ->
-//                localSelectedSubGame = newSubGame // Update local state immediately
-                onUserSelectedSubGame(newSubGame) // Inform the ViewModel
+                onUserSelectedSubGame(newSubGame)
+                uniquePathSelected(UniquePath(
+                    subGame = newSubGame,
+                ))
             }
         )
 
@@ -70,7 +74,8 @@ fun AdditionalInfoPickerLayoutPreview() {
             allSubGames = subgames,
             columns = 2,
             pageSize = 2,
-            onUserSelectedSubGame = {}
+            onUserSelectedSubGame = {},
+            uniquePathSelected = {}
         )
     }
 }
