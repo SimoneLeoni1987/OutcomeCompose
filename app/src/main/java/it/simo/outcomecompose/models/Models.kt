@@ -7,6 +7,8 @@ import it.simo.outcomecompose.domain.Converters.toSubgames
 // TODOLIST
 //  [ ] Create interface to get the stableId method
 //  [ ] Consider using by lazy to calculate only once the hash
+//  [ ] Using also the event data in the outcome to calculate the stable id
+
 
 @Keep
 data class Event(
@@ -14,15 +16,15 @@ data class Event(
     val sportCode: Int,
     val leagueCode: Int,
     val eventCode: Int,
-    val leagueDescription: String,
-    val leagueImageUrl: String,
+    val leagueDescription: String?,
+    val leagueImageUrl: String?,
     val eventDescription: String,
     val eventDate: Long,
-    val teamHome: Team,
-    val timeLive: String,
-    val teamAway: Team,
-    val sportDescription: String,
-    val sportBackgroundImageUrl: String,
+    val teamHome: Team?,
+    val timeLive: String?,
+    val teamAway: Team?,
+    val sportDescription: String?,
+    val sportBackgroundImageUrl: String?,
     val gamesNumber: Int,
     val live: Boolean
 ) {
@@ -80,6 +82,7 @@ data class BetItem(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
         other as BetItem
+        if (event.eventDescription != other.event.eventDescription) return false
         if (event.eventCode != other.event.eventCode) return false
         if (player != other.player) return false
         if (gameGroupList != other.gameGroupList) return false
@@ -90,6 +93,7 @@ data class BetItem(
 
     override fun hashCode(): Int {
         var result = event.eventCode.hashCode()
+        result = 31 * result + event.eventDescription.hashCode()
         result = 31 * result + player.hashCode()
         result = 31 * result + gameGroupList.hashCode()
         result = 31 * result + isScorecast.hashCode()
@@ -184,11 +188,14 @@ data class Game(
 @Keep
 data class SubGame(
     val subGameDescription: String,
-    val altSubGameDescription: String = "",
+    val altSubGameDescription: String? = "",
     val outcomeList: List<Outcome>,
     val subGameType: Int,
     val subGameCodeList: List<Int>,
     val additionalInfo: List<AdditionalInfo>? = null,
+
+    // Business
+    val selected: Boolean = false
 ) {
     fun getStableId(): Int {
         var result = subGameDescription.hashCode()
@@ -209,6 +216,7 @@ data class SubGame(
 
         other as SubGame
 
+        if (selected != other.selected) return false
         if (subGameDescription != other.subGameDescription) return false
         if (subGameCodeList != other.subGameCodeList) return false
         if (additionalInfo != other.additionalInfo) return false
@@ -221,6 +229,7 @@ data class SubGame(
     override fun hashCode(): Int {
         var result = subGameDescription.hashCode()
         result = 31 * result + subGameCodeList.hashCode()
+        result = 31 * result + selected.hashCode()
         result = 31 * result + (additionalInfo?.hashCode() ?: 0)
         result = 31 * result + subGameType.hashCode()
         result = 31 * result + outcomeList.hashCode()
@@ -228,6 +237,8 @@ data class SubGame(
     }
 }
 
+// TODO
+//  Add something from the event to make it unique
 @Keep
 data class Outcome(
     val outcomeCode: Int,

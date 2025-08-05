@@ -47,12 +47,12 @@ import it.simo.outcomecompose.ui.theme.Spacing2
 @Composable
 fun AdditionalInfoPicker(
     subgames: List<SubGame>,
-    currentSelection: SubGame?, // is really useful?
+    currentSelection: SubGame?,
     pageSize: Int = 3, // for the test sake
     onPickerClicked: (SubGame) -> Unit,
 ) {
 
-    var selectedSubGame by remember {
+    var selectedSubGame by remember(subgames) {
         mutableStateOf(currentSelection ?: subgames.first())
     }
 
@@ -73,13 +73,6 @@ fun AdditionalInfoPicker(
     //  We have also other configuration for the row:
     //     - the page size (how many subgame per page)
     //  We have to implement also the arrows to change the page
-
-    // doit
-    //  I need to create the row with
-    //  - the back arrow
-    //  - the "page" with the page size number of subgame to visualize
-    //  - the forward arrow
-    //  Also I need to mantain the state of the current page
 
     fun getPreviousPage() {
         return if (currentPage > 0) {

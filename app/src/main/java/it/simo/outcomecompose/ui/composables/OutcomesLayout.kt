@@ -14,6 +14,7 @@ import it.simo.outcomecompose.domain.Converters.toSubgames
 import it.simo.outcomecompose.domain.OutcomeLayoutType
 import it.simo.outcomecompose.domain.getOutcomeLayoutType
 import it.simo.outcomecompose.models.GameGroup
+import it.simo.outcomecompose.models.SubGame
 import it.simo.outcomecompose.ui.theme.OutcomeHeight
 import it.simo.outcomecompose.ui.theme.Spacing3
 import it.simo.outcomecompose.utils.Mock
@@ -26,7 +27,8 @@ import it.simo.outcomecompose.utils.Mock
 
 @Composable
 fun OutcomesLayout(
-    gameGroups: List<GameGroup>
+    gameGroups: List<GameGroup>,
+    onSubGameSelected: (SubGame) -> Unit
 ) {
 
     Column(
@@ -47,7 +49,7 @@ fun OutcomesLayout(
                             gameGroup.gameList.toSubgames(),
                             pageSize = gameGroup.layout.pickerPages,
                             columns = gameGroup.layout.columns,
-                            onUserSelectedSubGame = {}
+                            onUserSelectedSubGame = onSubGameSelected
                         )
                     }
                 }

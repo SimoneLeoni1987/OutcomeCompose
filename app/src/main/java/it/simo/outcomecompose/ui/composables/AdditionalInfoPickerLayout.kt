@@ -31,12 +31,12 @@ fun AdditionalInfoPickerLayout(
     onUserSelectedSubGame: (SubGame) -> Unit
 ) {
 
-    var localSelectedSubGame by remember {
-        mutableStateOf(allSubGames.firstOrNull())
+    var localSelectedSubGame by remember(allSubGames) {
+        mutableStateOf(allSubGames.firstOrNull {subGame -> subGame.selected} ?: allSubGames.first())
     }
 
     val outcomesForSelectedSubGame = remember(localSelectedSubGame) {
-        localSelectedSubGame?.outcomeList ?: emptyList()
+        localSelectedSubGame.outcomeList
     }
 
     // Maybe lazy column?
@@ -46,7 +46,7 @@ fun AdditionalInfoPickerLayout(
             pageSize = pageSize,
             currentSelection = localSelectedSubGame, // Use local for picker display
             onPickerClicked = { newSubGame ->
-                localSelectedSubGame = newSubGame // Update local state immediately
+//                localSelectedSubGame = newSubGame // Update local state immediately
                 onUserSelectedSubGame(newSubGame) // Inform the ViewModel
             }
         )

@@ -14,10 +14,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.getValue
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -67,19 +69,20 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(viewModel: MainViewModel, modifier: Modifier = Modifier) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-//   Here I need to mantain a map of subgames selection ..
-    // or to say, this is the local memory .. we are trying to manage hybrid!
-
     // list of CardLayouts
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        items(
-            count = uiState.betItems.size) { index ->
+
+        items(uiState.betItems
+        ) { item ->
             CardLayout(
-                betItem = uiState.betItems[index]
+                betItem = item,
+                onSubGameSelected = { subGame ->
+                    viewModel.onSubGameSelected(subGame)
+                }
             )
         }
     }
