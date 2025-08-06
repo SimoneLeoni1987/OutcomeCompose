@@ -11,7 +11,7 @@ object Converters {
      * Get all the outcomes from the each games, taking the first subgame
      *
      */
-    fun List<Game>.toOutcomes(): List<Outcome> {
+    fun List<Game>.toClassicOutcomes(): List<Outcome> {
         // we have to get all the outcomes for each game, taking the first subgame
         val outcomes = mutableListOf<Outcome>()
 
@@ -28,14 +28,12 @@ object Converters {
 
     /**
      *
-     * Get all the subgames from the first game
+     * Get all the subgames from the game
      *
      */
-    fun List<Game>.toSubgames(): List<SubGame> {
+    fun Game.toSubgames(): List<SubGame> {
         val subgames = mutableListOf<SubGame>()
-        val firstGame = this.firstOrNull()
-
-        firstGame?.subGameList?.forEach { subGame ->
+        this.subGameList.forEach { subGame ->
             subgames.add(subGame)
         }
 

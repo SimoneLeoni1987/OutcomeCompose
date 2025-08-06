@@ -17,12 +17,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.getValue
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import it.simo.outcomecompose.localcompositions.LocalOutcomeViewModel
 import it.simo.outcomecompose.ui.composables.CardLayout
 import it.simo.outcomecompose.ui.theme.OutcomeComposeTheme
 import it.simo.outcomecompose.ui.theme.Background
@@ -54,7 +56,10 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding)
                             .background(color = Background)
                     ) {
-                        MainScreen(viewModel = viewModel, modifier = Modifier.fillMaxSize())
+
+                        CompositionLocalProvider(LocalOutcomeViewModel provides viewModel.outcomeViewModel) {
+                            MainScreen(viewModel = viewModel, modifier = Modifier.fillMaxSize())
+                        }
                     }
                 }
             }
@@ -64,8 +69,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(viewModel: MainViewModel, modifier: Modifier = Modifier) {
+
+    // To get the ui update for this main screen
     val mainUiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val outcomesUiState by viewModel.outcomeViewModel.uiState.collectAsStateWithLifecycle()
+
+    val outcomesUiState by LocalOutcomeViewModel.current.uiState.collectAsStateWithLifecycle()
 
     // list of CardLayouts
     LazyColumn(

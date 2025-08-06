@@ -198,7 +198,7 @@ data class SubGame(
     val selected: Boolean = false
 ) {
     fun getStableId(): Int {
-        var result = subGameDescription.hashCode()
+        var result = subGameDescription?.hashCode() ?: 0
         subGameCodeList.forEach { code ->
             result = 31 * result + (code.hashCode())
         }
@@ -246,10 +246,16 @@ data class Outcome(
     val altOutcomeDescription: String,
     val outcomeOdds: Int,
     val iconUrl: String? = null,
-    val selected: Boolean
+    val selected: Boolean, // its never used
+
+    // Business
+    var betItem: BetItem? = null,
+    var subGame: SubGame? = null
 ) {
     fun getStableId(): Int {
         var hash = outcomeDescription.hashCode()
+        hash = 31 * hash + (betItem?.getStableId() ?: 0)
+        hash = 31 * hash + (subGame?.getStableId() ?: 0)
         hash = 31 * hash + (outcomeCode.hashCode())
         return hash
     }

@@ -4,9 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import it.simo.outcomecompose.models.Outcome
+import it.simo.outcomecompose.state.LocalOutcomesViewHandler
 import it.simo.outcomecompose.ui.theme.OutcomesHorizontalSpacing
 import it.simo.outcomecompose.ui.theme.OutcomesVerticalSpacing
 import kotlin.math.min

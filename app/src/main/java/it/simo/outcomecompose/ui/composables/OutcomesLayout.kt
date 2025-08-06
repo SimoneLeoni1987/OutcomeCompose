@@ -3,7 +3,7 @@ package it.simo.outcomecompose.ui.composables
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import it.simo.outcomecompose.domain.Converters.toOutcomes
+import it.simo.outcomecompose.domain.Converters.toClassicOutcomes
 import it.simo.outcomecompose.domain.Converters.toSubgames
 import it.simo.outcomecompose.domain.OutcomeLayoutType
 import it.simo.outcomecompose.domain.getOutcomeLayoutType
@@ -33,20 +33,21 @@ fun OutcomesLayout(
             if (layoutType != null) {
                 when (layoutType) {
                     is OutcomeLayoutType.Classic -> {
-                        OutcomeButtonsLayout(gameGroup.gameList.toOutcomes(),
+                        OutcomeButtonsLayout(gameGroup.gameList.toClassicOutcomes(),
                             columns = gameGroup.layout.columns,
                             onOutcomeClicked = {})
                     }
 
                     is OutcomeLayoutType.AdditionalInfoPicker -> {
+                        val game = gameGroup.gameList.first()
                         AdditionalInfoPickerLayout(
-                            gameGroup.gameList.toSubgames(),
+                            allSubGames = game.toSubgames(),
                             pageSize = gameGroup.layout.pickerPages,
                             columns = gameGroup.layout.columns,
                             onUserSelectedSubGame = onSubGameSelected,
                             uniquePathSelected = { uniquePath ->
                                 uniquePathSelected(uniquePath.copy(
-                                    game = gameGroup.gameList.first(), // Because we know the behaviour from toSubgames method
+                                    game = game,
                                     gameGroup = gameGroup
                                 ))
                             }
@@ -56,32 +57,4 @@ fun OutcomesLayout(
             }
         }
     }
-
-    /*LazyColumn(
-        userScrollEnabled = false
-    ) {
-        items(gameGroups.size) { index ->
-            val gameGroup = gameGroups[index]
-
-            val layoutType = gameGroup.layout.getOutcomeLayoutType()
-            if (layoutType != null) {
-                when (layoutType) {
-                    is OutcomeLayoutType.Classic -> {
-                        OutcomeButtonsLayout(gameGroup.gameList.toOutcomes(),
-                            columns = gameGroup.layout.columns,
-                            onOutcomeClicked = {})
-                    }
-
-                    is OutcomeLayoutType.AdditionalInfoPicker -> {
-                        AdditionalInfoPickerLayout(
-                            gameGroup.gameList.toSubgames(),
-                            pageSize = gameGroup.layout.pickerPages,
-                            columns = gameGroup.layout.columns,
-                            onUserSelectedSubGame = {}
-                        )
-                    }
-                }
-            }
-        }
-    }*/
 }

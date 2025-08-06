@@ -1,5 +1,7 @@
 package it.simo.outcomecompose.state
 
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.lifecycle.ViewModel
 import it.simo.outcomecompose.domain.OutcomeLayoutType
 import it.simo.outcomecompose.domain.getOutcomeLayoutType
@@ -18,7 +20,7 @@ import kotlinx.coroutines.flow.update
  * It manages the entier ui state for the screen that deals with the outcomes
  *
  */
-class OutcomeViewModel : ViewModel(), OutcomesViewInteractionHandler {
+class OutcomeViewModel : ViewModel() {
 
     // It holds
     //  - the id of the selected subgame
@@ -28,15 +30,13 @@ class OutcomeViewModel : ViewModel(), OutcomesViewInteractionHandler {
     // It also provides
     //  - the OutcomesScreenUiState
 
-    // TODO This state needs to be observed only by the Outcomes components
-    //   with CompositionLocal
     private val _uiState = MutableStateFlow(OutcomeScreenUiState())
     val uiState: StateFlow<OutcomeScreenUiState> = _uiState.asStateFlow()
 
     /**
      * Called when the user clicks on an outcome.
      */
-    private fun onOutcomeClicked(outcome: Outcome) {
+    fun onOutcomeClicked(outcome: Outcome) {
         _uiState.update { state ->
             val newSelectedIds = if (outcome.getStableId() in state.selectedOutcomeIds) {
                 state.selectedOutcomeIds - outcome.getStableId()
@@ -47,28 +47,19 @@ class OutcomeViewModel : ViewModel(), OutcomesViewInteractionHandler {
         }
     }
 
-    override fun onOutcomeEvent(event: OutcomeEvent) {
+    /*fun onOutcomeEvent(event: OutcomeEvent) {
         when (event) {
             is OutcomeEvent.OnOutcomeClicked -> {
                 onOutcomeClicked(event.outcome)
             }
         }
-    }
-
-    override fun isOutcomeSelectedState(outcome: Outcome): StateFlow<Boolean> {
-        TODO("Not yet implemented")
-    }
+    }*/
     
     fun initOutcomeViewModel(betItems: List<BetItem>) {
         _uiState.update { it.copy(betItems = betItems) }
     }
 
     fun onUpdateStateReviewed(uniquePath: UniquePath) {
-        val betItemUniquePath = uniquePath.betItem
-        val gameGroupUniquePath = uniquePath.gameGroup
-        val gameUniquePath = uniquePath.game
-        val subGameUniquePath = uniquePath.subGame
-
         _uiState.update { state ->
             val updatedBetItems = state.betItems.map { betItem ->
                 updateBetItemIfNeeded(betItem, uniquePath)

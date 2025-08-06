@@ -4,6 +4,8 @@ import android.content.Context
 import com.google.gson.Gson
 import it.simo.outcomecompose.data.response.BetItemsResponse
 import it.simo.outcomecompose.data.response.GameGroupsResponse
+import it.simo.outcomecompose.models.BetItem
+import it.simo.outcomecompose.utils.processAndLinkParsedData
 
 object DataGetter {
     fun getGameGroupList(context: Context, fileName: String): GameGroupsResponse {
@@ -13,7 +15,10 @@ object DataGetter {
     
     fun getBetItemList(context: Context, fileName: String): BetItemsResponse {
         val response = parseJsonFromAssetsToType(context, fileName, BetItemsResponse::class.java)
-        return response ?: BetItemsResponse(emptyList())
+        val updatedResponse = response?.copy(
+            betItems = response.betItems.processAndLinkParsedData()
+        )
+        return updatedResponse ?: BetItemsResponse(emptyList())
     }
 }
 
