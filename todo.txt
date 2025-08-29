@@ -1,6 +1,6 @@
 [x] Create an id for every model (to recognise the object) -> Stable id and equals
 [ ] Maybe I should use a "model" version from my objects, instead of the data objects
-[x] How to manage the selection of a type of subgames in every card? "Soglia" function
+[ ] How to manage the selection of a type of subgames in every card? "Soglia" function
 [x] How to create a different build type but with the same performance as Release
 [ ] How to comunicate the element selected? The entire object? Or just the stable id? -> Every object that
     has a selection inside, should have a bubble up method
