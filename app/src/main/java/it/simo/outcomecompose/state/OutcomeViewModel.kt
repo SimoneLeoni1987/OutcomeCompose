@@ -1,8 +1,8 @@
 package it.simo.outcomecompose.state
 
-import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import it.simo.outcomecompose.betslip.TempBetslipHelper
 import it.simo.outcomecompose.domain.OutcomeLayoutType
 import it.simo.outcomecompose.domain.getOutcomeLayoutType
 import it.simo.outcomecompose.models.BetItem
@@ -14,6 +14,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+const val TAG = "OutcomeViewModel"
 
 /**
  *
@@ -33,10 +36,16 @@ class OutcomeViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(OutcomeScreenUiState())
     val uiState: StateFlow<OutcomeScreenUiState> = _uiState.asStateFlow()
 
+    init {
+        viewModelScope.launch {
+            listeningFromBetlispHelper()
+        }
+    }
+
     /**
      * Called when the user clicks on an outcome.
      */
-    fun onOutcomeClicked(outcome: Outcome) {
+    private fun oldOnOutcomeClicked(outcome: Outcome) {
         _uiState.update { state ->
             val newSelectedIds = if (outcome.getStableId() in state.selectedOutcomeIds) {
                 state.selectedOutcomeIds - outcome.getStableId()
@@ -47,17 +56,51 @@ class OutcomeViewModel : ViewModel() {
         }
     }
 
-    /*fun onOutcomeEvent(event: OutcomeEvent) {
-        when (event) {
-            is OutcomeEvent.OnOutcomeClicked -> {
-                onOutcomeClicked(event.outcome)
+    fun onOutcomeClicked(outcome: Outcome) {
+        TempBetslipHelper.outcomeSelected(outcome)
+    }
+
+    private suspend fun listeningFromBetlispHelper() {
+        TempBetslipHelper.outcomeSelectedFlow.collect {
+            // TODO Create the other version, for the real betslip, where we have to interrogate
+            //  every single outcome -> We need the entire outcome object
+
+            _uiState.update { state ->
+                val updatedSelectedOutcomeIds = mutableListOf<Int>()
+                updatedSelectedOutcomeIds.addAll(TempBetslipHelper.selectedOutcomes)
+                state.copy(selectedOutcomeIds = updatedSelectedOutcomeIds)
             }
         }
-    }*/
-    
-    fun initOutcomeViewModel(betItems: List<BetItem>) {
-        _uiState.update { it.copy(betItems = betItems) }
     }
+
+    // The starting call to initialize the state
+    fun initOutcomeViewModel(betItems: List<BetItem>) {
+        // Synch with betslip manager
+        val selected = initSelectedOutcomesFromBetslip(betItems)
+        _uiState.update {
+            it.copy(
+                betItems = betItems,
+                selectedOutcomeIds = selected
+            )
+        }
+    }
+
+    private fun initSelectedOutcomesFromBetslip(betItems: List<BetItem>): List<Int> {
+        //  1. I have to search every outcome
+        //  2. Is it selected in betslip?
+        //    Y -> I need to insert it into the selected outcomes
+        //    N -> Lets continue
+
+        return betItems
+            .flatMap { it.gameGroupList }
+            .flatMap { it.gameList }
+            .flatMap { it.subGameList }
+            .flatMap { it.outcomeList }
+            .filter { TempBetslipHelper.isOutcomeSelected(it) }
+            .map { it.getStableId() }
+            .toList()
+    }
+
 
     fun onUpdateStateReviewed(uniquePath: UniquePath) {
         _uiState.update { state ->
@@ -86,7 +129,7 @@ class OutcomeViewModel : ViewModel() {
 
         // We are interested only in selection picker layout type
         // These are the possible layout that will handle the subgame selections
-        // TODO We have to improve, we need an action to know what to do .. so
+        // TODO We have to i_mprove, we need an action to know what to do .. so
         //  for example (SOGLIA action, where we have to set every picker with the some amount of
         //  subgame, so we will use that action information to substitute this "if"
         if (layoutType != OutcomeLayoutType.AdditionalInfoPicker) {

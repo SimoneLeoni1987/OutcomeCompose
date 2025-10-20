@@ -40,7 +40,9 @@ android {
     }
 
     buildTypes {
-        debug {}
+        debug {
+            isDebuggable = true
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true

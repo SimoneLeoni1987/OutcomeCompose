@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Outcome Compose"
 include(":app")
- 
+include(":betslipbridge")
