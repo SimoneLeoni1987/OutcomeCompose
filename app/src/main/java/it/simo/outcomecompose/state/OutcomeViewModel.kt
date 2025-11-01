@@ -23,7 +23,7 @@ const val TAG = "OutcomeViewModel"
  * It manages the entier ui state for the screen that deals with the outcomes
  *
  */
-class OutcomeViewModel : ViewModel() {
+class OutcomeViewModel : ViewModel(), IOutcomeViewModel {
 
     // It holds
     //  - the id of the selected subgame
@@ -34,7 +34,7 @@ class OutcomeViewModel : ViewModel() {
     //  - the OutcomesScreenUiState
 
     private val _uiState = MutableStateFlow(OutcomeScreenUiState())
-    val uiState: StateFlow<OutcomeScreenUiState> = _uiState.asStateFlow()
+    override val uiState: StateFlow<OutcomeScreenUiState> = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -56,7 +56,7 @@ class OutcomeViewModel : ViewModel() {
         }
     }
 
-    fun onOutcomeClicked(outcome: Outcome) {
+    override fun onOutcomeClicked(outcome: Outcome) {
         TempBetslipHelper.outcomeSelected(outcome)
     }
 

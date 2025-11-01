@@ -13,12 +13,15 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import it.simo.outcomecompose.localcompositions.LocalOutcomeViewModel
 import it.simo.outcomecompose.models.BetItem
 import it.simo.outcomecompose.models.SubGame
+import it.simo.outcomecompose.state.FakeOutcomeViewModel
 import it.simo.outcomecompose.state.UniquePath
 import it.simo.outcomecompose.ui.theme.CardBg
 import it.simo.outcomecompose.ui.theme.PurpleGrey40
@@ -67,18 +70,20 @@ fun CardLayoutPreview() {
     val modifier = Modifier
         .size(width = 240.dp, height = 100.dp)
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(color = PurpleGrey40),
-        contentAlignment = Alignment.Center
-    ) {
-        CardLayout(
-            modifier = modifier,
-            betItem = Mock.createBetItem(),
-            onSubGameSelected = {},
-            onPathSelected = {}
-        )
+    CompositionLocalProvider(LocalOutcomeViewModel provides FakeOutcomeViewModel()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = PurpleGrey40),
+            contentAlignment = Alignment.Center
+        ) {
+            CardLayout(
+                modifier = modifier,
+                betItem = Mock.createBetItem(),
+                onSubGameSelected = {},
+                onPathSelected = {}
+            )
+        }
     }
 }
